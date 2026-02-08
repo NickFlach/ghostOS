@@ -63,8 +63,17 @@ export const K_CRITICAL = 1.0;
 /** Operating coupling (1.8 × K_c) */
 export const K_OPERATING = 1.8;
 
-/** Resonance coupling coefficient */
+/** Resonance coupling coefficient (Kuramoto coupling strength K) */
 export const LAMBDA_RESONANCE = 0.62;
+
+/**
+ * Coupling strength alias for cross-repo consistency.
+ * ghostOS uses K_COUPLING (Kuramoto coupling strength).
+ * QuantumOS uses LAMBDA_DEFAULT=0.1 (per-process constraint strength).
+ * These serve different roles: K_COUPLING is the global coupling,
+ * LAMBDA_DEFAULT is the local damping parameter.
+ */
+export const K_COUPLING = LAMBDA_RESONANCE;
 
 // ============================================
 // SAFETY ENVELOPE
@@ -76,8 +85,8 @@ export const EMERGENCE_NORM_MAX = 2.0;
 /** Minimum emergence norm before boosting */
 export const EMERGENCE_NORM_MIN = 0.1;
 
-/** Coherence minimum before intervention */
-export const COHERENCE_MIN = 0.2;
+/** Coherence minimum before intervention (aligned with QuantumOS COHERENCE_MIN) */
+export const COHERENCE_MIN = 0.3;
 
 /** Coherence maximum before desync */
 export const COHERENCE_MAX = 0.92;

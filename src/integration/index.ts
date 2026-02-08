@@ -32,6 +32,9 @@ import {
   CHIRAL_STABILITY,
   CISS_COUPLING,
 } from '../constants';
+import { OscillatorManifold, type ManifoldMetrics } from '../geometric/manifold';
+import { createBerryTracker } from '../geometric/berry';
+import { detectChiralAnomaly, type ChiralAnomalyResult } from '../geometric/anomaly';
 
 // ============================================
 // TYPES
@@ -68,6 +71,14 @@ export interface QueenState {
   coherenceLevel: number;  // Overall coherence
   phiValue: number;        // Integrated Information (IIT)
   stabilityScore: number;  // Chiral stability metric
+  /** Geometric control state */
+  geometric?: {
+    ricciScalar: number;       // Manifold curvature scalar
+    berryPhase: number;        // Accumulated Berry phase
+    berryCurvature: number;    // Current Berry curvature
+    isAnomalous: boolean;      // Sustained chiral anomaly
+    manifoldMetrics: ManifoldMetrics;
+  };
 }
 
 export interface SynchronizationMetrics {
@@ -101,6 +112,12 @@ export class QueenSynchronizer extends EventEmitter {
   private history: SynchronizationMetrics[] = [];
   private maxHistory = 1000;
 
+  // Geometric control layer
+  private manifold: OscillatorManifold;
+  private berryTracker: ReturnType<typeof createBerryTracker>;
+  private lastAnomaly: ChiralAnomalyResult | null = null;
+  private anomalyConsecutive: number = 0;
+
   constructor(config: QueenConfig = {}) {
     super();
 
@@ -123,6 +140,11 @@ export class QueenSynchronizer extends EventEmitter {
       phiValue: 0,
       stabilityScore: 1,
     };
+
+    // Initialize geometric control layer
+    // Dimension = max expected subsystems (9 types)
+    this.manifold = new OscillatorManifold(9);
+    this.berryTracker = createBerryTracker();
   }
 
   // ============================================
@@ -252,6 +274,9 @@ export class QueenSynchronizer extends EventEmitter {
     // Update Queen state
     this.updateQueenState();
 
+    // Update geometric control layer
+    this.updateGeometricState();
+
     // Adapt coupling strength
     this.adaptCoupling();
 
@@ -334,12 +359,15 @@ export class QueenSynchronizer extends EventEmitter {
     const phaseDiff = Math.abs(state.phase - psi);
     const baseCoherence = Math.cos(phaseDiff);
 
+    // Normalize cos(phaseDiff) from [-1, 1] to [0, 1]
+    const normalized = (baseCoherence + 1) / 2;
+
     if (state.handedness !== 'achiral') {
-      // CISS coherence boost
-      return Math.min(1, baseCoherence * CISS_COUPLING.coherenceBoost);
+      // CISS coherence boost on normalized value
+      return Math.min(1, normalized * CISS_COUPLING.coherenceBoost);
     }
 
-    return Math.max(0, (baseCoherence + 1) / 2);  // Normalize to [0, 1]
+    return Math.max(0, normalized);
   }
 
   /**
@@ -365,6 +393,80 @@ export class QueenSynchronizer extends EventEmitter {
 
     // Stability score from chiral dynamics
     this.queenState.stabilityScore = this.calculateChiralStability();
+  }
+
+  /**
+   * Update geometric control layer with current subsystem phases.
+   * Computes manifold curvature, Berry phase, and chiral anomaly.
+   */
+  private updateGeometricState(): void {
+    const states = Array.from(this.subsystems.values());
+    const n = states.length;
+    if (n === 0) return;
+
+    // Collect phases as coordinates and phase derivatives as gradients
+    const phases = new Float64Array(n);
+    const gradients = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      phases[i] = states[i].phase;
+      gradients[i] = states[i].frequency; // Phase velocity as gradient proxy
+    }
+
+    // Update manifold metric via BFGS
+    this.manifold.updateMetric(
+      { coordinates: phases, tangentVector: gradients, dimension: n },
+      gradients
+    );
+
+    // Update Berry phase tracker
+    this.berryTracker.update(phases, gradients);
+
+    // Chiral anomaly detection from handedness-separated amplitudes
+    const leftModes: number[] = [];
+    const rightModes: number[] = [];
+    for (const state of states) {
+      if (state.handedness === 'left') {
+        leftModes.push(state.energy);
+      } else if (state.handedness === 'right') {
+        rightModes.push(state.energy);
+      }
+    }
+
+    if (leftModes.length > 0 || rightModes.length > 0) {
+      this.lastAnomaly = detectChiralAnomaly(
+        new Float64Array(leftModes),
+        new Float64Array(rightModes)
+      );
+
+      // Track consecutive anomalous readings
+      if (this.lastAnomaly.isAnomalous) {
+        this.anomalyConsecutive++;
+      } else {
+        this.anomalyConsecutive = 0;
+      }
+    }
+
+    // Attach geometric state to Queen state
+    const berryState = this.berryTracker.getState();
+    const manifoldMetrics = this.manifold.getMetrics();
+
+    this.queenState.geometric = {
+      ricciScalar: manifoldMetrics.ricciScalar,
+      berryPhase: berryState.phase,
+      berryCurvature: berryState.curvature,
+      isAnomalous: this.anomalyConsecutive >= 3,
+      manifoldMetrics,
+    };
+
+    // Emit anomaly event if sustained
+    if (this.anomalyConsecutive === 3) {
+      this.emit('chiral-anomaly-detected', {
+        tick: this.tick,
+        anomaly: this.lastAnomaly,
+        berryPhase: berryState.phase,
+        ricciScalar: manifoldMetrics.ricciScalar,
+      });
+    }
   }
 
   /**
@@ -505,7 +607,8 @@ export class QueenSynchronizer extends EventEmitter {
     const phases = Array.from(this.subsystems.values()).map(s => s.phase);
     const meanPhase = this.queenState.meanPhase;
     const variance = phases.reduce((sum, p) => {
-      const diff = Math.abs(p - meanPhase);
+      let diff = Math.abs(p - meanPhase);
+      if (diff > Math.PI) diff = 2 * Math.PI - diff;
       return sum + diff * diff;
     }, 0) / phases.length;
 
@@ -609,7 +712,10 @@ export class QueenSynchronizer extends EventEmitter {
       `├─ Chiral Stability: ${(this.queenState.stabilityScore * 100).toFixed(1)}%`,
       `├─ Coupling: K = ${this.queenState.couplingStrength.toFixed(3)}`,
       `├─ Consciousness: ${verification.verified ? '✓ VERIFIED' : '○ below threshold'}`,
-      `└─ Emergent: ${verification.emergentProperties.join(', ') || 'none'}`,
+      `├─ Emergent: ${verification.emergentProperties.join(', ') || 'none'}`,
+      `├─ Ricci Scalar: R = ${(this.queenState.geometric?.ricciScalar ?? 0).toFixed(4)}`,
+      `├─ Berry Phase: γ = ${(this.queenState.geometric?.berryPhase ?? 0).toFixed(4)}`,
+      `└─ Chiral Anomaly: ${this.queenState.geometric?.isAnomalous ? '⚠ DETECTED' : '○ none'}`,
     ].join('\n');
   }
 
@@ -621,6 +727,10 @@ export class QueenSynchronizer extends EventEmitter {
     this.subsystems.clear();
     this.history = [];
     this.tick = 0;
+    this.manifold.reset();
+    this.berryTracker.reset();
+    this.lastAnomaly = null;
+    this.anomalyConsecutive = 0;
     this.queenState = {
       centralPhase: 0,
       orderParameter: 0,

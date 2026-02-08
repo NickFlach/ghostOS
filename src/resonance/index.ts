@@ -21,6 +21,9 @@ import {
 } from '../constants';
 import type { Signal } from '../signal';
 import { ChiralEngine, type ChiralState, type ChiralConfig } from '../chiral';
+import { OscillatorManifold, type ManifoldMetrics } from '../geometric/manifold';
+import { createBerryTracker, type BerryState } from '../geometric/berry';
+import { detectChiralAnomaly, type ChiralAnomalyResult } from '../geometric/anomaly';
 
 // ============================================
 // TYPES
@@ -48,6 +51,12 @@ export interface ResonantState {
   lambda: number;
   /** Chiral state (if chiral mode enabled) */
   chiral?: ChiralState;
+  /** Geometric manifold metrics (curvature, Berry phase) */
+  geometric?: {
+    manifold: ManifoldMetrics;
+    berry: BerryState;
+    anomaly: ChiralAnomalyResult | null;
+  };
 }
 
 export interface ModeInfo {
@@ -76,6 +85,11 @@ export class ResonanceEngine {
   private enableChiral: boolean;
   private chiralEngine: ChiralEngine | null = null;
 
+  // Geometric control components
+  private manifold: OscillatorManifold;
+  private berryTracker: ReturnType<typeof createBerryTracker>;
+  private lastAnomaly: ChiralAnomalyResult | null = null;
+
   constructor(config: ResonanceConfig = {}) {
     this.lambda = config.lambda ?? DAMPING_DEFAULT;
     this.adaptiveRate = config.adaptiveRate ?? DEFAULT_CONFIG.adaptiveRate;
@@ -84,6 +98,10 @@ export class ResonanceEngine {
     this.state = new Float64Array(DEFAULT_CONFIG.dimensions);
     this.previousState = new Float64Array(DEFAULT_CONFIG.dimensions);
     this.velocity = new Float64Array(DEFAULT_CONFIG.dimensions);
+
+    // Initialize geometric control layer
+    this.manifold = new OscillatorManifold(DEFAULT_CONFIG.dimensions);
+    this.berryTracker = createBerryTracker();
 
     // Initialize chiral stability if enabled
     this.enableChiral = config.enableChiral ?? true;
@@ -140,6 +158,27 @@ export class ResonanceEngine {
 
     const isStable = this.checkStability(energy, coherence);
 
+    // Update geometric control layer
+    const gradient = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      gradient[i] = this.state[i] - this.previousState[i];
+    }
+    this.manifold.updateMetric(
+      { coordinates: this.state, tangentVector: gradient, dimension: n },
+      gradient
+    );
+    this.berryTracker.update(this.state, gradient);
+
+    // Chiral anomaly detection from mode analysis
+    if (this.enableChiral) {
+      const modes = this.detectModes();
+      if (modes.length >= 2) {
+        const leftModes = new Float64Array(modes.filter((_, i) => i % 2 === 0).map(m => m.amplitude));
+        const rightModes = new Float64Array(modes.filter((_, i) => i % 2 === 1).map(m => m.amplitude));
+        this.lastAnomaly = detectChiralAnomaly(leftModes, rightModes);
+      }
+    }
+
     // Adaptive damping
     this.adaptDamping(coherence);
 
@@ -162,6 +201,13 @@ export class ResonanceEngine {
     if (this.enableChiral && this.chiralEngine) {
       result.chiral = this.chiralEngine.getState();
     }
+
+    // Attach geometric state
+    result.geometric = {
+      manifold: this.manifold.getMetrics(),
+      berry: this.berryTracker.getState(),
+      anomaly: this.lastAnomaly,
+    };
 
     return result;
   }
@@ -380,6 +426,9 @@ export class ResonanceEngine {
     if (this.chiralEngine) {
       this.chiralEngine.reset();
     }
+    this.manifold.reset();
+    this.berryTracker.reset();
+    this.lastAnomaly = null;
   }
 
   /**

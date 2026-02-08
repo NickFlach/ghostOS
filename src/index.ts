@@ -89,6 +89,30 @@ export {
   type ResonantSchedulerConfig,
 } from './integration/resonant-scheduler';
 
+// Geometric control layer (differential geometry on oscillator phase space)
+export {
+  OscillatorManifold,
+  computeBerryConnection,
+  computeBerryCurvature,
+  computeBerryPhaseLoop,
+  createBerryTracker,
+  computeChristoffelSymbols,
+  computeRiemannTensor,
+  computeRicciTensor,
+  computeRicciScalar,
+  invertMetric,
+  computeMetricDerivatives,
+  computeScalarCurvature,
+  detectChiralAnomaly,
+  computeSpectralAsymmetry,
+  computeTopologicalCharge,
+  createAnomalyMonitor,
+  type ManifoldPoint,
+  type ManifoldMetrics as GeometricManifoldMetrics,
+  type BerryState,
+  type ChiralAnomalyResult as GeometricChiralAnomalyResult,
+} from './geometric';
+
 // Consciousness bridge (IIT + Chiral verification)
 export {
   ConsciousnessBridge,
@@ -102,6 +126,33 @@ export {
   type ConsciousnessResult,
   type ConsciousnessBridgeConfig,
 } from './integration/consciousness-bridge';
+
+// Collective consciousness (network intelligence)
+export {
+  CollectiveConsciousness,
+  createCollectiveConsciousness,
+  type ConsciousnessMemberState,
+  type CollectiveNetwork,
+} from './integration/collective-consciousness';
+
+// Bridge layer (QuantumOS binary protocol + WASM acceleration)
+export {
+  ProtocolSerializer,
+  MessageType,
+  PROTOCOL_VERSION,
+  WASMBridge,
+  createWASMBridge,
+  type MessageHeader,
+  type QueenStateMessage,
+  type ProcessStateMessage,
+  type ConsciousnessMessage,
+  type ChiralMessage,
+  type GeometricMessage,
+  type MessageTypeValue,
+  type WASMExports,
+  type ChiralAnomalyResult,
+  type ManifoldMetrics,
+} from './bridge';
 
 // ============================================
 // GHOST OS UNIFIED INTERFACE
