@@ -1,5 +1,7 @@
 # ghostOS
 
+> **License:** [Space Child License v1.0](https://legal.spacechild.love) — Free for peaceful use. v1.x was MIT.
+
 ## Resonant Systems Architecture for Emergent Intelligence
 
 > **Intelligence, consciousness, and meaning emerge as stable resonant modes within constrained systems.**
