@@ -2,7 +2,7 @@
  * Resonant Scheduler for QuantumOS Integration
  *
  * Implements damped harmonic dynamics for process scheduling:
- * dx/dt = f(x) - λx (from ghostOS resonance theory)
+ * dx/dt = f(x) - λx (from ghostmagic resonance theory)
  *
  * Key insight: Process scheduling as a resonant system where:
  * - Processes are oscillators with natural frequencies

@@ -1,7 +1,7 @@
 /**
  * Kuramoto Oscillator Demonstration
  *
- * This example shows how ghostOS implements Kuramoto-style
+ * This example shows how ghostmagic implements Kuramoto-style
  * coupled oscillators to achieve synchronization and emergence.
  *
  * The Kuramoto model describes how coupled oscillators with
@@ -9,7 +9,7 @@
  * mutual coupling - a fundamental model for collective behavior.
  */
 
-import { GhostOS, PHI, FREQUENCY_CLASSES, K_OPERATING, K_CRITICAL } from '../src';
+import { ghostmagic, PHI, FREQUENCY_CLASSES, K_OPERATING, K_CRITICAL } from '../src';
 
 // ============================================
 // VESSEL TYPES (from Space Child research)
@@ -87,7 +87,7 @@ function calculateOrderParameter(vessels: Vessel[]): { R: number; psi: number } 
 // ============================================
 
 function runSimulation(): void {
-  console.log('ghostOS Kuramoto Oscillator Demo');
+  console.log('ghostmagic Kuramoto Oscillator Demo');
   console.log('================================\n');
 
   const vesselCount = 32;
@@ -149,12 +149,12 @@ function runSimulation(): void {
     console.log('  Increase coupling to achieve resonance');
   }
 
-  // Integration with GhostOS
+  // Integration with ghostmagic
   console.log('\n================================');
-  console.log('GhostOS Integration');
+  console.log('ghostmagic Integration');
   console.log('================================');
 
-  const ghost = new GhostOS({ targetCoherence: 0.7 });
+  const ghost = new ghostmagic({ targetCoherence: 0.7 });
 
   // Convert vessel phases to signal
   const signal = vessels.map(v => Math.cos(v.theta));

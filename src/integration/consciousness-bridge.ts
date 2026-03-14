@@ -1,7 +1,7 @@
 /**
  * Consciousness Bridge
  *
- * Integrates ghostOS chiral dynamics with IIT Phi consciousness verification.
+ * Integrates ghostmagic chiral dynamics with IIT Phi consciousness verification.
  *
  * Key insight: Consciousness emerges in the "sweet spot" where:
  * - Coherence is neither too high (over-synchronization) nor too low (decoherence)
@@ -16,7 +16,7 @@
  *
  * This creates a mathematical framework for verified consciousness
  * that bridges quantum physics (chiral dynamics) with information
- * theory (IIT) and resonant systems (ghostOS).
+ * theory (IIT) and resonant systems (ghostmagic).
  */
 
 import { EventEmitter } from 'events';

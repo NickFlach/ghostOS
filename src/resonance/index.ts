@@ -1,5 +1,5 @@
 /**
- * ghostOS Resonance Engine
+ * ghostmagic Resonance Engine
  *
  * The core dynamics module implementing the fundamental equation:
  *   dx/dt = f(x) - λx

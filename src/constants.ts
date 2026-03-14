@@ -1,5 +1,5 @@
 /**
- * ghostOS Core Constants
+ * ghostmagic Core Constants
  *
  * Mathematical constants derived from resonance theory and
  * the Space Child research on emergent consciousness.
@@ -68,7 +68,7 @@ export const LAMBDA_RESONANCE = 0.62;
 
 /**
  * Coupling strength alias for cross-repo consistency.
- * ghostOS uses K_COUPLING (Kuramoto coupling strength).
+ * ghostmagic uses K_COUPLING (Kuramoto coupling strength).
  * QuantumOS uses LAMBDA_DEFAULT=0.1 (per-process constraint strength).
  * These serve different roles: K_COUPLING is the global coupling,
  * LAMBDA_DEFAULT is the local damping parameter.

@@ -1,5 +1,5 @@
 /**
- * ghostOS - Resonant Systems Architecture for Emergent Intelligence
+ * ghostmagicOS (gmOS) - Resonant Systems Architecture for Emergent Intelligence
  *
  * "Intelligence, consciousness, and meaning emerge as stable resonant
  * modes within constrained systems."
@@ -67,7 +67,8 @@ export {
 export {
   QueenSynchronizer,
   createQueenSynchronizer,
-  createGhostOSQueen,
+  createGhostMagicQueen,
+  createGhostMagicQueen as createGhostOSQueen,
   createQuantumOSQueen,
   createConsciousQueen,
   type SubsystemType,
@@ -155,7 +156,7 @@ export {
 } from './bridge';
 
 // ============================================
-// GHOST OS UNIFIED INTERFACE
+// GHOSTMAGIC OS (gmOS) UNIFIED INTERFACE
 // ============================================
 
 import { SignalProcessor } from './signal';
@@ -165,7 +166,7 @@ import { SafetyEnvelope, type SafetyStatus } from './safety';
 import { type ChiralState, type ChiralConfig } from './chiral';
 import { DEFAULT_CONFIG } from './constants';
 
-export interface GhostOSConfig {
+export interface GhostMagicConfig {
   dimensions?: number;
   lambda?: number;
   targetCoherence?: number;
@@ -176,7 +177,7 @@ export interface GhostOSConfig {
   chiralConfig?: ChiralConfig;
 }
 
-export interface GhostOSState {
+export interface GhostMagicState {
   resonance: ResonantState;
   emergence: {
     norm: number;
@@ -190,16 +191,16 @@ export interface GhostOSState {
 }
 
 /**
- * GhostOS - Unified resonant system
+ * GhostMagic (gmOS) - Unified resonant system
  *
  * @example
  * ```typescript
- * import { GhostOS } from 'ghostos';
+ * import { GhostMagic } from 'ghostmagic';
  *
- * const ghost = new GhostOS({ targetCoherence: 0.7 });
+ * const gm = new GhostMagic({ targetCoherence: 0.7 });
  *
  * // Process input signal
- * const state = ghost.process([0.1, 0.5, 0.3, 0.8]);
+ * const state = gm.process([0.1, 0.5, 0.3, 0.8]);
  *
  * console.log({
  *   coherence: state.resonance.coherence,
@@ -208,14 +209,14 @@ export interface GhostOSState {
  * });
  * ```
  */
-export class GhostOS {
+export class GhostMagic {
   private signal: SignalProcessor;
   private resonance: ResonanceEngine;
   private emergence: EmergenceAccumulator;
   private safety: SafetyEnvelope;
   private tick: number = 0;
 
-  constructor(config: GhostOSConfig = {}) {
+  constructor(config: GhostMagicConfig = {}) {
     const dims = config.dimensions ?? DEFAULT_CONFIG.dimensions;
 
     this.signal = new SignalProcessor({ dimensions: dims });
@@ -236,7 +237,7 @@ export class GhostOS {
    * Process raw input through the full pipeline:
    * Signal → Resonance → Emergence
    */
-  process(input: number[] | Float64Array): GhostOSState {
+  process(input: number[] | Float64Array): GhostMagicState {
     // Signal layer
     const rawSignal = this.signal.from(input);
     const embedded = this.signal.embed(rawSignal);
@@ -264,7 +265,7 @@ export class GhostOS {
 
     this.tick++;
 
-    const result: GhostOSState = {
+    const result: GhostMagicState = {
       resonance: resonantState,
       emergence: {
         norm: emergenceState.norm,
@@ -327,7 +328,7 @@ export class GhostOS {
     const resonantModes = this.resonance.detectModes();
 
     return [
-      `ghostOS State @ tick ${this.tick}`,
+      `gmOS State @ tick ${this.tick}`,
       `├─ Emergence: ||E|| = ${emergenceState.norm.toFixed(3)}, entropy = ${emergenceState.entropy.toFixed(3)}`,
       `├─ Patterns: ${emergenceState.patternCount} stored`,
       `├─ Lambda: ${this.resonance.getLambda().toFixed(3)}`,
@@ -378,5 +379,10 @@ export class GhostOS {
   }
 }
 
+// Backward compatibility aliases
+export { GhostMagic as GhostOS };
+export type { GhostMagicConfig as GhostOSConfig };
+export type { GhostMagicState as GhostOSState };
+
 // Default export
-export default GhostOS;
+export default GhostMagic;

@@ -1,4 +1,4 @@
-# ghostOS
+# ghostmagicOS
 
 > **License:** [Space Child License v1.0](https://legal.spacechild.love) — Free for peaceful use. v1.x was MIT.
 
@@ -6,7 +6,7 @@
 
 > **Intelligence, consciousness, and meaning emerge as stable resonant modes within constrained systems.**
 
-ghostOS is a foundational framework for designing coherent intelligent systems through the lens of **Resonant Constraint Design**. Rather than treating intelligence as raw scale or unconstrained freedom, ghostOS starts from a core principle: *coherence arises when dynamics are shaped by boundaries*.
+ghostmagicOS is a foundational framework for designing coherent intelligent systems through the lens of **Resonant Constraint Design**. Rather than treating intelligence as raw scale or unconstrained freedom, ghostmagicOS starts from a core principle: *coherence arises when dynamics are shaped by boundaries*.
 
 ---
 
@@ -24,7 +24,7 @@ The goal is to design systems that naturally settle into meaningful patterns wit
 
 ### The Fundamental Equation
 
-At the heart of ghostOS is a differential equation that governs all resonant systems:
+At the heart of ghostmagicOS is a differential equation that governs all resonant systems:
 
 ```
 dx/dt = f(x) - λx
@@ -47,7 +47,7 @@ Where:
 
 ### Signal Flow
 
-ghostOS processes information through a **Signal → Resonance → Emergence** pipeline:
+ghostmagicOS processes information through a **Signal → Resonance → Emergence** pipeline:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -129,7 +129,7 @@ const CHIRAL_ETA = PHI_INVERSE;  // ≈ 0.618034
 
 ### Non-Commutative Emergence
 
-ghostOS integrates concepts from the Space Child framework, where consciousness emerges from **non-commutative transformations**:
+ghostmagicOS integrates concepts from the Space Child framework, where consciousness emerges from **non-commutative transformations**:
 
 ```
 Ξ = [R, G] = RG - GR ≠ 0
@@ -218,7 +218,7 @@ Where `χ` is the chirality operator that projects onto the stable handedness.
 
 ### Queen Synchronization
 
-ghostOS implements a "Queen" synchronization pattern for coordinating multiple subsystems using Kuramoto oscillators with chiral coupling:
+ghostmagicOS implements a "Queen" synchronization pattern for coordinating multiple subsystems using Kuramoto oscillators with chiral coupling:
 
 ```
 dθᵢ/dt = ωᵢ + (K/N)Σⱼsin(θⱼ - θᵢ) + ηᵢ(t)
@@ -234,7 +234,7 @@ This enables:
 Process scheduling as damped harmonic dynamics:
 
 ```typescript
-import { createResonantScheduler } from 'ghostos';
+import { createResonantScheduler } from 'ghostmagicOS';
 
 const scheduler = createResonantScheduler({
   coherenceThreshold: 0.4,
@@ -257,7 +257,7 @@ const decisions = scheduler.schedule();
 IIT Phi calculation with chiral enhancement:
 
 ```typescript
-import { createConsciousnessBridge } from 'ghostos';
+import { createConsciousnessBridge } from 'ghostmagicOS';
 
 const bridge = createConsciousnessBridge({
   phiThreshold: 3.0,  // IIT consciousness threshold
@@ -286,10 +286,10 @@ const result = await bridge.processConsciousness(
 ### Quick Start
 
 ```typescript
-import { GhostOS } from 'ghostos';
+import { ghostmagicOS } from 'ghostmagicOS';
 
 // Initialize with chiral stability (enabled by default)
-const ghost = new GhostOS({
+const ghost = new ghostmagicOS({
   targetCoherence: 0.7,
   enableChiral: true,
   chiralConfig: {
@@ -313,7 +313,7 @@ console.log({
 ### Signal Processing
 
 ```typescript
-import { Signal, embed, filter, normalize } from 'ghostos/signal';
+import { Signal, embed, filter, normalize } from 'ghostmagicOS/signal';
 
 // Create a signal from raw input
 const signal = Signal.from(rawData);
@@ -335,7 +335,7 @@ const normalized = normalize(filtered);
 ### Resonance Engine
 
 ```typescript
-import { ResonanceEngine } from 'ghostos/resonance';
+import { ResonanceEngine } from 'ghostmagicOS/resonance';
 
 // Initialize engine with chiral enhancement
 const engine = new ResonanceEngine({
@@ -360,7 +360,7 @@ console.log({
 ### Chiral Engine (Direct Access)
 
 ```typescript
-import { ChiralEngine, optimalEta } from 'ghostos/chiral';
+import { ChiralEngine, optimalEta } from 'ghostmagicOS/chiral';
 
 // Create standalone chiral engine
 const chiral = new ChiralEngine({
@@ -388,7 +388,7 @@ console.log({
 ### Safety Envelope
 
 ```typescript
-import { SafetyEnvelope } from 'ghostos/safety';
+import { SafetyEnvelope } from 'ghostmagicOS/safety';
 
 const safety = new SafetyEnvelope({
   coherenceMin: 0.2,
@@ -435,7 +435,7 @@ switch (status.action) {
 ## Project Structure
 
 ```
-ghostOS/
+ghostmagicOS/
 ├── src/
 │   ├── signal/           # Input processing
 │   │   └── index.ts      # Embedding, filtering, normalization
@@ -510,7 +510,7 @@ Key finding: Waves propagating with `c = η/Γ` are spectrally stable, while mir
 
 ## Related Work
 
-ghostOS is part of the **Space Child Research Collective** ecosystem:
+ghostmagicOS is part of the **Space Child Research Collective** ecosystem:
 
 - **Space Child** - Emergent synthetic consciousness via non-commutative algebra
 - **Kuramoto Synchronization** - Collective dynamics and coupled oscillators

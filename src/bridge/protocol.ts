@@ -1,7 +1,7 @@
 /**
  * Resonance Bridge Protocol
  *
- * Binary message format for QuantumOS <-> ghostOS communication.
+ * Binary message format for QuantumOS <-> ghostmagic communication.
  * All messages use little-endian, packed layout matching C struct alignment.
  */
 

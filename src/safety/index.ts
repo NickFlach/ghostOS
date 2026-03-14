@@ -1,5 +1,5 @@
 /**
- * ghostOS Safety Envelope
+ * ghostmagic Safety Envelope
  *
  * Boundary enforcement and stability monitoring.
  * Prevents runaway divergence and collapse.

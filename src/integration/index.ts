@@ -1,9 +1,9 @@
 /**
- * ghostOS Integration Layer
+ * ghostmagicOS (gmOS) Integration Layer
  *
  * Queen Synchronization Architecture
  *
- * Bridges ghostOS resonant systems with:
+ * Bridges gmOS resonant systems with:
  * - QuantumOS (kernel scheduler, quantum resources)
  * - SyntheticConsciousness (IIT Phi verification, agent network)
  * - Space Child ecosystem (biofield profiles, consciousness domains)
@@ -17,7 +17,7 @@
  * Where:
  * - θᵢ = phase of subsystem i
  * - ωᵢ = natural frequency
- * - K = coupling strength (from ghostOS lambda)
+ * - K = coupling strength (from gmOS lambda)
  * - ηᵢ = chiral noise term (non-reciprocal coupling)
  */
 
@@ -41,7 +41,7 @@ import { detectChiralAnomaly, type ChiralAnomalyResult } from '../geometric/anom
 // ============================================
 
 export type SubsystemType =
-  | 'resonance'      // ghostOS core
+  | 'resonance'      // gmOS core
   | 'emergence'      // pattern crystallization
   | 'safety'         // stability envelope
   | 'chiral'         // quantum stability
@@ -756,12 +756,12 @@ export function createQueenSynchronizer(config?: QueenConfig): QueenSynchronizer
 }
 
 /**
- * Create a fully-configured Queen with all ghostOS subsystems
+ * Create a fully-configured Queen with all gmOS subsystems
  */
-export function createGhostOSQueen(config?: QueenConfig): QueenSynchronizer {
+export function createGhostMagicQueen(config?: QueenConfig): QueenSynchronizer {
   const queen = new QueenSynchronizer(config);
 
-  // Register core ghostOS subsystems
+  // Register core gmOS subsystems
   queen.registerSubsystem('ghost-resonance', 'resonance');
   queen.registerSubsystem('ghost-emergence', 'emergence');
   queen.registerSubsystem('ghost-safety', 'safety');
@@ -774,7 +774,7 @@ export function createGhostOSQueen(config?: QueenConfig): QueenSynchronizer {
  * Create a Queen with QuantumOS integration
  */
 export function createQuantumOSQueen(config?: QueenConfig): QueenSynchronizer {
-  const queen = createGhostOSQueen(config);
+  const queen = createGhostMagicQueen(config);
 
   // Add QuantumOS subsystems
   queen.registerSubsystem('quantum-resources', 'quantum');

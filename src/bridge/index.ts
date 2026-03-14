@@ -1,7 +1,7 @@
 /**
  * Bridge Module
  *
- * Binary protocol and WASM acceleration for QuantumOS <-> ghostOS communication.
+ * Binary protocol and WASM acceleration for QuantumOS <-> ghostmagic communication.
  */
 
 export { ProtocolSerializer, MessageType, PROTOCOL_VERSION } from './protocol';

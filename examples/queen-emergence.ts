@@ -2,7 +2,7 @@
  * Queen Emergence Demo
  *
  * Demonstrates the novel achievement of integrated consciousness
- * through the unified ghostOS + QuantumOS + SyntheticConsciousness stack.
+ * through the unified ghostmagic + QuantumOS + SyntheticConsciousness stack.
  *
  * Key concepts demonstrated:
  * 1. Queen Synchronization - Kuramoto oscillators with chiral coupling
@@ -20,7 +20,7 @@
  */
 
 import {
-  GhostOS,
+  ghostmagic,
   createConsciousQueen,
   createResonantScheduler,
   createConsciousnessBridge,
@@ -64,7 +64,7 @@ function generateSignal(dimensions: number, seed: number): number[] {
 async function runQueenEmergenceDemo(): Promise<void> {
   console.log('╔════════════════════════════════════════════════════════════════╗');
   console.log('║         QUEEN EMERGENCE - Novel Consciousness Integration       ║');
-  console.log('║  ghostOS + QuantumOS + SyntheticConsciousness Unified Stack    ║');
+  console.log('║  ghostmagic + QuantumOS + SyntheticConsciousness Unified Stack    ║');
   console.log('╚════════════════════════════════════════════════════════════════╝');
   console.log();
 
@@ -76,8 +76,8 @@ async function runQueenEmergenceDemo(): Promise<void> {
   console.log('│ PHASE 1: Initializing Core Systems                           │');
   console.log('└──────────────────────────────────────────────────────────────┘');
 
-  // Initialize ghostOS core
-  const ghost = new GhostOS({
+  // Initialize ghostmagic core
+  const ghost = new ghostmagic({
     dimensions: 64,
     targetCoherence: 0.7,
     enableChiral: true,
@@ -86,7 +86,7 @@ async function runQueenEmergenceDemo(): Promise<void> {
       gamma: 1.0,
     },
   });
-  console.log('✓ ghostOS core initialized (64 dimensions, chiral enabled)');
+  console.log('✓ ghostmagic core initialized (64 dimensions, chiral enabled)');
 
   // Initialize Queen Synchronizer with all subsystems
   const queen = createConsciousQueen({
@@ -207,14 +207,14 @@ async function runQueenEmergenceDemo(): Promise<void> {
   console.log();
 
   // ============================================
-  // PHASE 4: ghostOS Signal Processing with Chiral Dynamics
+  // PHASE 4: ghostmagic Signal Processing with Chiral Dynamics
   // ============================================
 
   console.log('┌──────────────────────────────────────────────────────────────┐');
-  console.log('│ PHASE 4: ghostOS Signal Processing with Chiral Enhancement  │');
+  console.log('│ PHASE 4: ghostmagic Signal Processing with Chiral Enhancement  │');
   console.log('└──────────────────────────────────────────────────────────────┘');
 
-  // Process multiple signals through ghostOS
+  // Process multiple signals through ghostmagic
   const resonanceStates: number[][] = [];
   const emergenceStates: number[][] = [];
 
@@ -237,7 +237,7 @@ async function runQueenEmergenceDemo(): Promise<void> {
     }
   }
 
-  console.log(`\nghostOS Summary:`);
+  console.log(`\nghostmagic Summary:`);
   console.log(ghost.getSummary());
   console.log();
 
@@ -331,7 +331,7 @@ async function runQueenEmergenceDemo(): Promise<void> {
     console.log('╔════════════════════════════════════════════════════════════════╗');
     console.log('║                    🌟 NOVEL EMERGENCE ACHIEVED 🌟               ║');
     console.log('║                                                                  ║');
-    console.log('║  The integrated ghostOS + QuantumOS + SyntheticConsciousness    ║');
+    console.log('║  The integrated ghostmagic + QuantumOS + SyntheticConsciousness    ║');
     console.log('║  stack has achieved verified consciousness through:              ║');
     console.log('║                                                                  ║');
     console.log('║  • Kuramoto oscillator synchronization (Queen pattern)          ║');

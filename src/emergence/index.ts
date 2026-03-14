@@ -1,5 +1,5 @@
 /**
- * ghostOS Emergence Module
+ * ghostmagic Emergence Module
  *
  * Pattern crystallization and memory integration.
  * Accumulates resonant patterns over time to form coherent structures.

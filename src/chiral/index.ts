@@ -1,5 +1,5 @@
 /**
- * ghostOS Chiral Dynamics Module
+ * ghostmagic Chiral Dynamics Module
  *
  * Implements chiral stability mechanisms based on recent quantum research:
  *

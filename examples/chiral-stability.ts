@@ -20,7 +20,7 @@
  */
 
 import {
-  GhostOS,
+  ghostmagic,
   ChiralEngine,
   PHI,
   PHI_INVERSE,
@@ -33,11 +33,11 @@ import {
 // ============================================
 
 function compareStability(): void {
-  console.log('ghostOS Chiral Stability Demonstration');
+  console.log('ghostmagic Chiral Stability Demonstration');
   console.log('======================================\n');
 
   // Create two systems: one with chiral enhancement, one without
-  const chiralSystem = new GhostOS({
+  const chiralSystem = new ghostmagic({
     enableChiral: true,
     targetCoherence: 0.7,
     chiralConfig: {
@@ -49,7 +49,7 @@ function compareStability(): void {
     },
   });
 
-  const standardSystem = new GhostOS({
+  const standardSystem = new ghostmagic({
     enableChiral: false,
     targetCoherence: 0.7,
   });

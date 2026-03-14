@@ -1,5 +1,5 @@
 /**
- * ghostOS Signal Processing Module
+ * ghostmagic Signal Processing Module
  *
  * Handles input processing, embedding, filtering, and normalization.
  * Transforms raw signals into the vector space where resonance occurs.

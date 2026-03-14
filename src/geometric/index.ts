@@ -1,5 +1,5 @@
 /**
- * ghostOS Geometric Control Layer
+ * ghostmagic Geometric Control Layer
  *
  * Differential geometry primitives for the oscillator phase space.
  * Provides Berry curvature, manifold operations, curvature tensors,

@@ -1,5 +1,5 @@
 {
-  "name": "ghostos",
+  "name": "ghostmagic",
   "version": "0.1.0",
   "description": "Resonant Systems Architecture for Emergent Intelligence",
   "main": "dist/index.js",
@@ -59,12 +59,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/flaukowski/ghostOS.git"
+    "url": "git+https://github.com/NickFlach/ghostmagicOS.git"
   },
   "bugs": {
-    "url": "https://github.com/flaukowski/ghostOS/issues"
+    "url": "https://github.com/NickFlach/ghostmagicOS/issues"
   },
-  "homepage": "https://github.com/flaukowski/ghostOS#readme",
+  "homepage": "https://github.com/NickFlach/ghostmagicOS#readme",
   "devDependencies": {
     "@types/node": "^20.10.0",
     "tsup": "^8.0.0",
